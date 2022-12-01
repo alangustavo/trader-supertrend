@@ -1,0 +1,19 @@
+{
+    "name": "alangustavo/trader-supertrend",
+    "description": "Get supertrend indicators from php and php-trader library",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Alangustavo\\TraderSupertrend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alan Gustavo",
+            "email": "alan.gustavo@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

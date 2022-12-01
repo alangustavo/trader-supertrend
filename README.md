@@ -18,14 +18,17 @@ composer require alangustavo/trader-supertrend
 ```php
 trader_supertrend(array $high, array $low, array $close, $timePeriod, $multiplier);
 ```
-
-### Setup
-
-Checkout the repository and then install with composer.
-
-~~~
-git checkout git@github.com:LupeCode/phpTraderNative.git
-cd phpTraderNative
-composer install --dev
-~~~
-
+it returns an array with:
+```php
+[ 
+    [
+        'close' => 13.58332345,
+        'type'  => '-1'
+    ],
+    [
+        'close' => $12.5468844,
+        'type'  => 1
+    ]
+]
+```
+where -1 = sell and 1 = buy.
