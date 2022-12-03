@@ -31,6 +31,9 @@ function trader_supertrend(
     int $timePeriod,
     int $multiplier
 ) {
+    if (count($high) <= $timePeriod) {
+        throw new Exception("The number of elements in the input arrays must be greater than the timePeriod", 1);
+    }
     $previous_final_upperband = 0;
     $previous_final_lowerband = 0;
     $final_upperband = 0;
@@ -43,34 +46,13 @@ function trader_supertrend(
     $history = [];
 
     $trader_atr = trader_atr($high, $low, $close, $timePeriod);
-
+    // var_dump($trader_atr);
+    // die();
     foreach ($trader_atr as $index => $atr) {
         if (is_nan($atr)) $atr = 0;
         $closec = $close[$index];
         $basic_upperband = ($high[$index] + $low[$index]) / 2 + $multiplier * $atr;
         $basic_lowerband = ($high[$index] + $low[$index]) / 2 - $multiplier * $atr;
-        ///////////////////////////////////////
-
-        /*"""
-    SuperTrend Algorithm :
-        BASIC UPPERBAND = (HIGH + LOW) / 2 + Multiplier * ATR
-        BASIC LOWERBAND = (HIGH + LOW) / 2 - Multiplier * ATR
-        FINAL UPPERBAND = IF( (Current BASICUPPERBAND < Previous FINAL UPPERBAND) or (Previous Close > Previous FINAL UPPERBAND))
-                            THEN (Current BASIC UPPERBAND) ELSE Previous FINALUPPERBAND)
-        FINAL LOWERBAND = IF( (Current BASIC LOWERBAND > Previous FINAL LOWERBAND) or (Previous Close < Previous FINAL LOWERBAND))
-                            THEN (Current BASIC LOWERBAND) ELSE Previous FINAL LOWERBAND)
-        SUPERTREND = IF((Previous SUPERTREND = Previous FINAL UPPERBAND) and (Current Close <= Current FINAL UPPERBAND)) THEN
-                        Current FINAL UPPERBAND
-                    ELSE
-                        IF((Previous SUPERTREND = Previous FINAL UPPERBAND) and (Current Close > Current FINAL UPPERBAND)) THEN
-                            Current FINAL LOWERBAND
-                        ELSE
-                            IF((Previous SUPERTREND = Previous FINAL LOWERBAND) and (Current Close >= Current FINAL LOWERBAND)) THEN
-                                Current FINAL LOWERBAND
-                            ELSE
-                                IF((Previous SUPERTREND = Previous FINAL LOWERBAND) and (Current Close < Current FINAL LOWERBAND)) THEN
-                                    Current FINAL UPPERBAND
-    """*/
 
         if (($basic_upperband < $previous_final_upperband) or ($previous_close > $previous_final_upperband)) {
             $final_upperband = $basic_upperband;
