@@ -16,7 +16,7 @@ composer require alangustavo/trader-supertrend
 
 ## Usage
 ```php
-trader_supertrend(array $high, array $low, array $close, $timePeriod, $multiplier);
+TraderSupertrend::get(array $high, array $low, array $close, $timePeriod, $multiplier);
 ```
 it returns an array with:
 ```php
